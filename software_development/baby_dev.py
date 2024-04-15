@@ -22,7 +22,7 @@ todo_prompt = PromptTemplate.from_template(
     "Come up with a list of needed functions for this objective: {objective}"
 )
 todo_llm = LLMChain(
-    llm=OpenAI(temperature=0),
+    llm=OpenAI(model="gpt-3.5-turbo-instruct", temperature=0),
     prompt=todo_prompt
 )
 # # , model_name="ada"
@@ -30,6 +30,7 @@ software_prompt = PromptTemplate.from_template(DEV_PROMPT)
 # careful: if you have the wrong model spec, you might not get any code!
 software_llm = LLMChain(
     llm=OpenAI(
+        model="gpt-3.5-turbo-instruct",
         temperature=0,
         max_tokens=4000
     ),
@@ -93,7 +94,7 @@ Task: {input}
 #     suffix=SUFFIX, input_variables=["input", "agent_scratchpad", "chat_history"]
 # )
 
-llm = OpenAI()
+llm = OpenAI(model="gpt-3.5-turbo-instruct")
 planner = load_chat_planner(llm)
 executor = load_agent_executor(
     llm,
